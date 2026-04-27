@@ -1,5 +1,5 @@
 /* =========================
-Mobile Menu Toggle Script
+Mobile Menu Toggle Script JUST ARROW CLCIK OPEN CLOSE
 ========================= */
 
 jQuery(function ($) {
@@ -25,6 +25,57 @@ jQuery(function ($) {
     });
 });
 
+
+// =========================
+// MOBILE MENU SCRIPT WITH LI PARENT CLICK OPEN CLOSE
+// =========================
+jQuery(function ($) {
+    $(document).ready(function () {
+
+        // Add mobile toggle button
+        $("body ul.et_mobile_menu li.menu-item-has-children, body ul.et_mobile_menu li.page_item_has_children")
+            .append('<a href="#" class="mobile-toggle"></a>');
+
+        // Toggle function — reusable
+        function toggleSubmenu($li) {
+            $li.toggleClass('dt-open');
+            $li.find('> ul.sub-menu').toggleClass('visible');
+            $li.find('> ul.children').toggleClass('visible');
+        }
+
+        // Arrow toggle button click
+        $('ul.et_mobile_menu li.menu-item-has-children .mobile-toggle, ul.et_mobile_menu li.page_item_has_children .mobile-toggle')
+            .on('click', function (event) {
+                event.preventDefault();
+                event.stopImmediatePropagation();
+                toggleSubmenu($(this).closest('li'));
+            });
+
+
+        $('ul.et_mobile_menu li.menu-item-has-children > a:not(.mobile-toggle), ul.et_mobile_menu li.page_item_has_children > a:not(.mobile-toggle)')
+            .off()
+            .on('click', function (event) {
+                event.preventDefault();
+                event.stopImmediatePropagation();
+                toggleSubmenu($(this).closest('li'));
+            });
+
+        // Add icon attribute
+        iconFINAL = 'P';
+        $('body ul.et_mobile_menu li.menu-item-has-children, body ul.et_mobile_menu li.page_item_has_children')
+            .attr('data-icon', iconFINAL);
+
+        // Hover state for toggle
+        $('.mobile-toggle')
+            .on('mouseover', function () {
+                $(this).parent().addClass('is-hover');
+            })
+            .on('mouseout', function () {
+                $(this).parent().removeClass('is-hover');
+            });
+
+    });
+});
 
 /* =========================
    MOBILE MENU
